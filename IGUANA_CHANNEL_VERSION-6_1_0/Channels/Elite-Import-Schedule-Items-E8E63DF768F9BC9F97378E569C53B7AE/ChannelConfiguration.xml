@@ -1,0 +1,24 @@
+<channel
+   name="Elite-Import-Schedule-Items"
+   guid="E8E63DF768F9BC9F97378E569C53B7AE"
+   description=""
+   start_automatically="false"
+   logging_level="1"
+   use_message_filter="false">
+   <to_mapper
+      guid="Elite-Import-Schedule-Items-To-nlhhuyMzRJ1TSC"
+      commit_id="18620032f98fe0f52e7757f6ee455e622586501f"
+      commit_comment="initial">
+      <dequeue_list>
+         <dequeue
+            source_name="self"
+            dequeue_guid="2D727B2F08569B3FB9B67D5DD4A32080"/>
+      </dequeue_list>
+   </to_mapper>
+   <from_mapper
+      guid="Elite-Import-Schedule-Items-From-trZIYoYASMlvgy"
+      commit_id="8bc5be2891fa406fd5650c8ddcabbfda4526278c"
+      commit_comment="commit"
+      poll_time="10000">
+   </from_mapper>
+</channel>

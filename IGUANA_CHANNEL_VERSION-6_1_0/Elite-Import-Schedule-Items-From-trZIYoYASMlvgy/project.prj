@@ -1,0 +1,18 @@
+{
+    "LocalDependencies": [
+        "tpl/arcos/db/DatabaseConnection.lua",
+        "tpl/arcos/sql/ArcosSqlQueries.lua",
+        "tpl/arcos/sql/EliteSqlQueries.lua",
+        "tpl/arcos/util/Constants.lua",
+        "tpl/arcos/util/Properties.lua",
+        "tpl/arcos/util/Validation.lua"
+    ],
+    "LuaDependencies": [],
+    "OtherDependencies": [],
+    "timestamp": "1580258759",
+    "version_info": {
+        "build": 0,
+        "major": 6,
+        "minor": 0
+    }
+}
