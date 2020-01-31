@@ -9,8 +9,8 @@
    </to_channel>
    <from_mapper
       guid="Arcos_channel_2-From-S625HIf70hPpee"
-      commit_id="81fef4f819ca736ff26cab09cb24c26946ee8658"
-      commit_comment="inserting data into std_elite_po_data table"
+      commit_id="fdb94fb4c7499ae2d18ac6c0cd2b31783844f7ab"
+      commit_comment="commit by adding elite_data validation"
       poll_time="10000">
    </from_mapper>
 </channel>

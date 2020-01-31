@@ -26,7 +26,8 @@ function main()
            -- Arcos_data= conn_Arcos_stg:query{sql = "SELECT * FROM ArcosMDB.dbo.ScheduleItems;",live=true};
             print(elite_data,elite_data[1].ITEM_NUM,elite_data[1].QTY_RECEIVED,elite_data[1].CONFIRM_DATE,elite_data[1].VENDOR_NUM,elite_data[1].FORM_222_NUM)
             print(elite_data[1].ORG_CODE,elite_data[1].PO_NUM,elite_data[1].LINE_SEQ,elite_data[1].LICENSE_TYPE,elite_data[1].WHSE_CODE,elite_data[1].DEA_LICENSE)
-          -- validationForOrderData(elite_data)     
+          -- validationForOrderData(elite_data)   
+            if(#elite_data>0) then
             valid_status=validationForOrderData(elite_data)
              if(valid_status==true) then --if 4
                  log_file:write(TIME_STAMP..VALIDATION_SUCCESS,"\n")
@@ -86,10 +87,37 @@ function main()
    
    
    '\n   )'
-                   conn_Arcos_stg:execute{sql=SqlInsert, live=true}
+                   Insert_Result=conn_Arcos_stg:execute{sql=SqlInsert, live=true}
           		
         end  		
-          		
+          	if(Insert_Result~=nil) then
+                  SqlDelete=[[DELETE s
+FROM stg_elite_po_data s
+inner join trnsctn t on s.item_num = t.item_id
+WHERE 
+s.vendor_num = t.cust_id
+AND 
+s.po_num= t.ship_po_num
+AND 
+s.line_seq= t.ship_po_line_num
+                  ]]
+                  
+                  SqlInsert2=[[Delete_Result=conn_Arcos_stg:execute{sql=SqlInsert, live=true}
+                  
+                  INSERT INTO trnsctn (item_id, quantity, trnsctn_date, cust_id, order_form_id, assoc_registrant_dea, trnsctn_cde, row_add_stp, row_add_user_id, cord_dea, order_num, ship_po_num, ship_po_line_num, unit, whse)
+Select(item_num,qty_received,confirm_date,vendor_num,form_222_num,dea_license,'P',Getdate(),'Iquana User -' + Getdate(),CASE WHEN whse_code = "CORD100" THEN 'RC0229965' ELSE 'RC0361206' END  AS CordDEA,po_num,po_num,line_seq,'',whse_code)
+from  stg_elite_po_data
+                  ]]
+                  
+                  
+                  Insert_Result_Tran=conn_Arcos_stg:execute{sql=SqlInsert2, live=true}
+                  
+                  
+                  
+                  
+                  else
+                           log_file:write(TIME_STAMP.."        Insertion Failed","\n")
+                  end
           		
           		
           		
@@ -105,7 +133,9 @@ function main()
             else
                 log_file:write(TIME_STAMP.."        Data not got deleted from stg_elite_po_data table","\n")
             end
-            
+            else
+                log_file:write(TIME_STAMP.."No data found in elite_data,"\n")
+            end
             
             else
                 log_file:write(TIME_STAMP..DB_CON_ERROR_ARCOS_STG,"\n")
