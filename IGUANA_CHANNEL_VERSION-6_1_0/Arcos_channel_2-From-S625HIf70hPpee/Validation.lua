@@ -25,11 +25,24 @@ end
 function Validation.validate_value_userdata(order_value) --validation of data present in order files
       if(order_value == nil) then
 	        return false
-      elseif(type(order_value:nodeText())=='userdata') then
+      elseif(type(order_value:nodeText())=='string') then
          return true
       else
          return false
       end
 end
+
+
+
+function Validation.validate_value_string2(order_value) --validation of data present in order files
+      if(order_value == nil) then
+	        return false
+      elseif(type(order_value:nodeText())=='string') then
+         return true
+      else
+         return false
+      end
+end
+
 
 return Validation
