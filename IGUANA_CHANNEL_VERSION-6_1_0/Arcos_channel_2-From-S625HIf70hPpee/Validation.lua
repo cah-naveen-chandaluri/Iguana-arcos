@@ -10,6 +10,15 @@ function Validation.validate_value_string(order_value,column_size) --validation 
 end 
 
 
+function Validation.validate_value_string2(order_value) --validation of data present in order files
+      if(order_value == nil) then
+	        return false
+      elseif(type(order_value:nodeText())=='string') then
+         return true
+      else
+         return false
+      end
+end
 
 
 function Validation.validate_value_num(order_value,column_size) --validation of data present in order files
@@ -22,10 +31,11 @@ function Validation.validate_value_num(order_value,column_size) --validation of 
       end
 end
 
+
 function Validation.validate_value_userdata(order_value) --validation of data present in order files
       if(order_value == nil) then
 	        return false
-      elseif(type(order_value:nodeText())=='string') then
+      elseif(type(order_value:nodeText())=='userdata') then
          return true
       else
          return false
@@ -34,15 +44,6 @@ end
 
 
 
-function Validation.validate_value_string2(order_value) --validation of data present in order files
-      if(order_value == nil) then
-	        return false
-      elseif(type(order_value:nodeText())=='string') then
-         return true
-      else
-         return false
-      end
-end
 
 
 return Validation

@@ -10,12 +10,8 @@ function util.logic()
                 print(elite_data[1]["TRIM(PROD_841_D.PO_L.ORG_CODE)"],elite_data[1]["TRIM(PROD_841_D.PO_L.PO_NUM)"],elite_data[1]["TRIM(PROD_841_D.PO_L.LINE_SEQ)"])
                 print(elite_data[1]["TRIM(PROD_841_D.ITEM_LICENSE_CE.LICENSE_TYPE)"],elite_data[1]["TRIM(PROD_841_D.PO_L.WHSE_CODE)"])
                 print(elite_data[1].DEA_LICENSE,elite_data[1]["TRIM(PROD_841_D.PO_L_CE.FORM_222_NUM)"])
-                -- validationForOrderData(elite_data)
-               
-            util.logic2()
-            
-            
-            
+                -- validationForOrderData(elite_data)               
+            util.logic2()            
         else
             log_file:write(TIME_STAMP..DB_CON_ERROR_ARCOS_STG,"\n")
         end   --end if 3
@@ -29,20 +25,17 @@ function util.logic()
 end
 
 
-
-
-
-function util.logic2()
-   
+function util.logic2()   
     if(#elite_data>0) then   -- if 10
                     valid_status=util.validationForOrderData(elite_data)
                     if(valid_status==true) then --if 4
                         log_file:write(TIME_STAMP..VALIDATION_SUCCESS,"\n")
                         del_status1=conn_Arcos_stg:query{sql="delete from ArcosMDB.dbo.stg_elite_po_data",live=true}
+                        Sel_result=conn_Arcos_stg:query{sql="select * from ArcosMDB.dbo.stg_elite_po_data", live=true}
+                        print(Sel_result,#Sel_result)
                         --sql_delete1 = "CALL del_Procedure("
                         --..conn:quote(tostring(elite_data,elite_data[1].ITEM_NUM))..")"
                         --del_status1 = conn:execute{sql=sql_delete1, live=true};
-
                     else
                         log_file:write(TIME_STAMP..VALIDATION_FAILED,"\n")
                     end    --end if 4
@@ -54,32 +47,21 @@ function util.logic2()
                                                       log_file:write(TIME_STAMP..VALIDATION_FAILED,"\n")
                                       end    --end if 4
                                       ]]--
-
-                    if(del_status1 == nil) then      --if 5
-
-
+                    if(#Sel_result==0) then      --if 5
                          util.Before_Insertion()
-
-
                     else
                         log_file:write(TIME_STAMP.."        Data not got deleted from stg_elite_po_data table","\n")
                     end   --end if 5
-                else
-                    log_file:write(TIME_STAMP.."        No data found in elite_data","\n")
-                end    --end if 10
+  else
+      log_file:write(TIME_STAMP.."        No data found in elite_data","\n")
+  end    --end if 10
 
 end
 
 function util.Before_Insertion()
-
-   
-   
-   
                         for i=1,#elite_data do    --for 7
-                            insertion_status = false
                             --conn:execute{sql=[[START TRANSACTION;]] ,live=true};
                             SqlInsert =
-
                                 [[
                     INSERT INTO ArcosMDB.dbo.stg_elite_po_data(item_num,
                     qty_received,
@@ -96,7 +78,6 @@ function util.Before_Insertion()
                     VALUES
                   (
                   ]]..
-
                                 "'"..tab_elite_data_correct[i].ITEM_NUM.."',"..
                                 "\n   '"..tab_elite_data_correct[i].QTY_RECEIVED.."',"..
                                 "\n   '"..tab_elite_data_correct[i].CONFIRM_DATE.."',"..
@@ -109,15 +90,11 @@ function util.Before_Insertion()
                                 "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.PO_L.WHSE_CODE)"].."',"..
                                 "\n   '"..tab_elite_data_correct[i].DEA_LICENSE.."'"..
                                 '\n   )'
-
-
-
-
-                            Insert_Result[i]=conn_Arcos_stg:query{sql=SqlInsert, live=true}
-                            print(Insert_Result)
-
-                    end  	   --end for 7
-   
+                           -- Insert_Result[i]=conn_Arcos_stg:query{sql=SqlInsert, live=true}
+                              conn_Arcos_stg:execute{sql=SqlInsert, live=true}
+                    end  	   --end for 7 
+    Sel_res1=conn_Arcos_stg:query{sql="select * from ArcosMDB.dbo.stg_elite_po_data", live=true}
+      print(Sel_res1)
    
 util.After_Insertion()
    
@@ -125,40 +102,23 @@ util.After_Insertion()
 end
 
 function util.After_Insertion()
-
-
-
                     print(#Insert_Result)
-
                     print(#tab_elite_data_correct)
-
-
-                     if(Insert_Result~=nil) then    --if 10
-                      
-                     
-                     
+                     if(#Sel_res1>0) then    --if 10
                                  SqlDelete2="DELETE s FROM ArcosMDB.dbo.stg_elite_po_data s inner join ArcosMDB.dbo.trnsctn t on s.item_num = t.item_id WHERE s.vendor_num = t.cust_id AND  s.po_num= t.ship_po_num AND  s.line_seq= t.ship_po_line_num"
-
-                Del_Result3=conn_Arcos_stg:query{sql=SqlDelete2, live=true}
-
-if(Del_Result3==nil) then   --if 11
-                            
-                        SqlInsert2="INSERT INTO ArcosMDB.dbo.trnsctn (item_id, quantity, trnsctn_date, cust_id, order_form_id, assoc_registrant_dea, trnsctn_cde, row_add_stp, row_add_user_id, cord_dea, order_num, ship_po_num, ship_po_line_num, unit, whse) Select item_num,qty_received,confirm_date,vendor_num,form_222_num,dea_license,'P',Getdate(),'Iquana User -' + convert(varchar(100), Getdate()),CASE WHEN whse_code = 'CORD100' THEN 'RC0229965' ELSE 'RC0361206' END  AS CordDEA,po_num,po_num,line_seq,'',whse_code from  ArcosMDB.dbo.stg_elite_po_data WHERE (form_222_num  not like  '3PL*'  OR  form_222_num  Is  Null)"
-                        
+                --Del_Result3=conn_Arcos_stg:query{sql=SqlDelete2, live=true}
+                conn_Arcos_stg:query{sql=SqlDelete2, live=true}
+      Sel_res2=conn_Arcos_stg:query{sql="select * from ArcosMDB.dbo.stg_elite_po_data", live=true}
+      
+if(#Sel_res2>0 and #Sel_res2<=#Sel_res1) then   --if 11                            
+                        SqlInsert2="INSERT INTO ArcosMDB.dbo.trnsctn (item_id, quantity, trnsctn_date, cust_id, order_form_id, assoc_registrant_dea, trnsctn_cde, row_add_stp, row_add_user_id, cord_dea, order_num, ship_po_num, ship_po_line_num, unit, whse) Select item_num,qty_received,confirm_date,vendor_num,form_222_num,dea_license,'P',Getdate(),'Iquana User -' + convert(varchar(100), Getdate()),CASE WHEN whse_code = 'CORD100' THEN 'RC0229965' ELSE 'RC0361206' END  AS CordDEA,po_num,po_num,line_seq,'',whse_code from  ArcosMDB.dbo.stg_elite_po_data WHERE (form_222_num  not like  '3PL*'  OR  form_222_num  Is  Null)"                        
                         Insert_Result2=conn_Arcos_stg:execute{sql=SqlInsert2, live=true}
 else
-         log_file:write(TIME_STAMP.."        Insertion Failed","\n")                
+         log_file:write(TIME_STAMP.."        Insertion Failed as no data is there to insert","\n")                
  end          --end if 11               
-
-                    else
-                        
-                         log_file:write(TIME_STAMP.."        Comparision failed","\n") 
-                     
+                    else                        
+                         log_file:write(TIME_STAMP.."        Comparision failed","\n")                     
                      end   --end if 10
-
-
-
-
 end
 
 
@@ -179,7 +139,7 @@ end  --end Verify_DBConn_Arcos() function
 
 function util.verify_Directory_Status()  --function for verifying directory status
 
-    if(result_LogDirectory_Status==false)   then   -- checking for directory exist or not   --if 99
+    if(result_LogDirectory_Status==false)   then  --if 99  -- checking for directory exist or not   
         log_file:write(TIME_STAMP..LOG_DIR_MISS,"\n") --checking
         os.fs.mkdir(output_log_path)
         log_file:write(TIME_STAMP..LOG_DIR_CREATE,"\n") --checking
