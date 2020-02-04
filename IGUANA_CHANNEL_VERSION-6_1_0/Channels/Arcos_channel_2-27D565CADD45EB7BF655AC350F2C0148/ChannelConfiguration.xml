@@ -9,8 +9,8 @@
    </to_channel>
    <from_mapper
       guid="Arcos_channel_2-From-S625HIf70hPpee"
-      commit_id="c862b767e30683ab0081373573b59b3e141fb9ff"
-      commit_comment="commit modified logic"
+      commit_id="ff82d64f8174a74cd38e643563bec55ed301ab22"
+      commit_comment="commit"
       poll_time="10000">
    </from_mapper>
 </channel>

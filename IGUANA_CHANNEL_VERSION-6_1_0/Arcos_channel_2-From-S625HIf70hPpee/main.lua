@@ -21,10 +21,11 @@ function main()
     Insert_Result={}
     Sel_res={}
    
+   
     log_file = util.getLogFile(output_log_path)    --calling the geLogFile function
     log_file:write(TIME_STAMP..CHANNEL_STARTED_RUNNING,"\n")
-   
     util.logic()
+   
 end  ---end main function
 
 

@@ -10,6 +10,8 @@ function util.logic()
                 print(elite_data[1]["TRIM(PROD_841_D.PO_L.ORG_CODE)"],elite_data[1]["TRIM(PROD_841_D.PO_L.PO_NUM)"],elite_data[1]["TRIM(PROD_841_D.PO_L.LINE_SEQ)"])
                 print(elite_data[1]["TRIM(PROD_841_D.ITEM_LICENSE_CE.LICENSE_TYPE)"],elite_data[1]["TRIM(PROD_841_D.PO_L.WHSE_CODE)"])
                 print(elite_data[1].DEA_LICENSE,elite_data[1]["TRIM(PROD_841_D.PO_L_CE.FORM_222_NUM)"])
+            print(elite_data[1]["TRIM(PROD_841_D.PO_L.ORG_CODE)"]:nodeText(),#elite_data[1].ITEM_NUM)
+            print(elite_data[1]["TRIM(PROD_841_D.ITEM.UPC)"])
                 -- validationForOrderData(elite_data)               
             util.logic2()            
         else
@@ -73,7 +75,8 @@ function util.Before_Insertion()
                     line_seq,
                     license_type,
                     whse_code,
-                    dea_license
+                    dea_license,
+                    upc
                   )
                     VALUES
                   (
@@ -88,7 +91,9 @@ function util.Before_Insertion()
                                 "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.PO_L.LINE_SEQ)"].."',"..
                                 "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.ITEM_LICENSE_CE.LICENSE_TYPE)"].."',"..
                                 "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.PO_L.WHSE_CODE)"].."',"..
-                                "\n   '"..tab_elite_data_correct[i].DEA_LICENSE.."'"..
+                                "\n   '"..tab_elite_data_correct[i].DEA_LICENSE.."',"..
+                                "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.ITEM.UPC)"].."'"..
+      
                                 '\n   )'
                            -- Insert_Result[i]=conn_Arcos_stg:query{sql=SqlInsert, live=true}
                               conn_Arcos_stg:execute{sql=SqlInsert, live=true}
@@ -105,13 +110,16 @@ function util.After_Insertion()
                     print(#Insert_Result)
                     print(#tab_elite_data_correct)
                      if(#Sel_res1>0) then    --if 10
-                                 SqlDelete2="DELETE s FROM ArcosMDB.dbo.stg_elite_po_data s inner join ArcosMDB.dbo.trnsctn t on s.item_num = t.item_id WHERE s.vendor_num = t.cust_id AND  s.po_num= t.ship_po_num AND  s.line_seq= t.ship_po_line_num"
+                                 SqlDelete2="DELETE s FROM ArcosMDB.dbo.stg_elite_po_data s inner join ArcosMDB.dbo.trnsctn t on s.item_num = t.item_id WHERE  s.vendor_num = t.cust_id AND  s.po_num= t.ship_po_num AND  s.line_seq= t.ship_po_line_num"
                 --Del_Result3=conn_Arcos_stg:query{sql=SqlDelete2, live=true}
                 conn_Arcos_stg:query{sql=SqlDelete2, live=true}
       Sel_res2=conn_Arcos_stg:query{sql="select * from ArcosMDB.dbo.stg_elite_po_data", live=true}
       
 if(#Sel_res2>0 and #Sel_res2<=#Sel_res1) then   --if 11                            
-                        SqlInsert2="INSERT INTO ArcosMDB.dbo.trnsctn (item_id, quantity, trnsctn_date, cust_id, order_form_id, assoc_registrant_dea, trnsctn_cde, row_add_stp, row_add_user_id, cord_dea, order_num, ship_po_num, ship_po_line_num, unit, whse) Select item_num,qty_received,confirm_date,vendor_num,form_222_num,dea_license,'P',Getdate(),'Iquana User -' + convert(varchar(100), Getdate()),CASE WHEN whse_code = 'CORD100' THEN 'RC0229965' ELSE 'RC0361206' END  AS CordDEA,po_num,po_num,line_seq,'',whse_code from  ArcosMDB.dbo.stg_elite_po_data WHERE (form_222_num  not like  '3PL*'  OR  form_222_num  Is  Null)"                        
+                        SqlInsert2=[[INSERT INTO ArcosMDB.dbo.trnsctn (item_id, quantity, trnsctn_date, cust_id, order_form_id, assoc_registrant_dea, trnsctn_cde, row_add_stp, row_add_user_id, cord_dea, order_num, ship_po_num, ship_po_line_num, unit, whse, upc)
+Select item_num,qty_received,confirm_date,vendor_num,form_222_num,dea_license,'P',Getdate(),'Iquana User -' + convert(varchar(100), Getdate()),CASE WHEN whse_code = 'CORD100' THEN 'RC0229965' ELSE 'RC0361206' END  AS CordDEA,po_num,po_num,line_seq,'',whse_code,upc
+from  ArcosMDB.dbo.stg_elite_po_data
+WHERE (form_222_num  not like  '3PL*'  OR  form_222_num  Is  Null)]]                        
                         Insert_Result2=conn_Arcos_stg:execute{sql=SqlInsert2, live=true}
 else
          log_file:write(TIME_STAMP.."        Insertion Failed as no data is there to insert","\n")                
@@ -177,16 +185,17 @@ function util.validationForOrderData(elite_data)
 
         if(  --if 21
             Validation.validate_value_string(elite_data[i].ITEM_NUM,ITEM_NUM)   --if 11
-            and Validation.validate_value_string2(elite_data[i].QTY_RECEIVED)  --need to check
+            and Validation.validate_value_string(elite_data[i].QTY_RECEIVED,QTY_RECEIVED)  --need to check
             and Validation.validate_value_string2(elite_data[i].CONFIRM_DATE)  --need to check
             and Validation.validate_value_string(elite_data[i]["TRIM(PROD_841_D.PO_L.VENDOR_NUM)"],VENDOR_NUM)
             and Validation.validate_value_string(elite_data[i]["TRIM(PROD_841_D.PO_L_CE.FORM_222_NUM)"],FORM_222_NUM)
             and Validation.validate_value_string(elite_data[i]["TRIM(PROD_841_D.PO_L.ORG_CODE)"],ORG_CODES)
-            and Validation.validate_value_string2(elite_data[i]["TRIM(PROD_841_D.PO_L.PO_NUM)"])  --need to check  -- size is 38
-            and Validation.validate_value_string2(elite_data[i]["TRIM(PROD_841_D.PO_L.LINE_SEQ)"])  --need to check -- size is 38
+            and Validation.validate_value_string(elite_data[i]["TRIM(PROD_841_D.PO_L.PO_NUM)"],PO_NUM)  --need to check  -- size is 38
+            and Validation.validate_value_string(elite_data[i]["TRIM(PROD_841_D.PO_L.LINE_SEQ)"],LINE_SEQ)  --need to check -- size is 38
             and Validation.validate_value_string(elite_data[i]["TRIM(PROD_841_D.ITEM_LICENSE_CE.LICENSE_TYPE)"],LICENSE_TYPE)
             and Validation.validate_value_string(elite_data[i]["TRIM(PROD_841_D.PO_L.WHSE_CODE)"],WHSE_CODE)
             and Validation.validate_value_string(elite_data[i].DEA_LICENSE,DEA_LICENSE)
+            and Validation.validate_value_string(elite_data[1]["TRIM(PROD_841_D.ITEM.UPC)"],UPC)
             )then
             validateion_status = true
             tab_elite_data_correct[i]=elite_data[i]
