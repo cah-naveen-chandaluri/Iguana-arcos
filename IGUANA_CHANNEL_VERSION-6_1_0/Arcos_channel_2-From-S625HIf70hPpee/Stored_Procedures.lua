@@ -1,7 +1,7 @@
-local Stored_Procedures =  {}
+local stored_Procedures =  {}
 
     
-function Stored_Procedures.firstProcedure()   --creting update procedure
+function stored_Procedures.firstProcedure()   --creting update procedure
  
 
   -- print(UNIQUE_TRANS_NU)
@@ -24,7 +24,7 @@ function Stored_Procedures.firstProcedure()   --creting update procedure
       
 end
 
-function Stored_Procedures.delProcedure()
+function stored_Procedures.delProcedure()
  -- conn_Arcos_stg:execute{sql='DROP PROCEDURE IF EXISTS del_Procedure',live=true}
  -- conn_Arcos_stg:execute{sql=[[CREATE PROCEDURE del_Procedure (
   -- IN VAL char(30)
@@ -38,7 +38,7 @@ function Stored_Procedures.delProcedure()
 end
    
 
-function Stored_Procedures.insProcedure()
+function stored_Procedures.insProcedure()
    --conn_Arcos_stg:execute{sql='DROP PROCEDURE IF EXISTS Insert1',live=true}  --procedure to insert data into csos_order_header
   -- conn_Arcos_stg:execute{sql=[[CREATE PROCEDURE Insert1( 
    --[[   IN item_num char(30),
@@ -64,4 +64,4 @@ function Stored_Procedures.insProcedure()
    
 end
    
-return Stored_Procedures
+return stored_Procedures

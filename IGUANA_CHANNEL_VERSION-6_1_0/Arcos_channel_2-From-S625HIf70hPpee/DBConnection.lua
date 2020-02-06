@@ -1,6 +1,6 @@
-local DBConnection =  {}
+local dbConnection =  {}
 
-function DBConnection.connectdb()
+function dbConnection.connectdb()
 
     if not conn_Arcos_stg or conn_Arcos_stg:check() then  --dev connection
         if conn_Arcos_stg and conn_Arcos_stg:check() then
@@ -36,38 +36,19 @@ function DBConnection.connectdb()
     }
     end
 
-
-
-
-    --[[
-   if not conn_dev or conn_dev:check() then  --dev connection
-        if conn_dev and conn_dev:check() then
-            conn_dev:close() end
-        conn_dev = db.connect{
-            api=db.MY_SQL,
-            name='3pl_sps_ordering@ddec0609plord01.cdhhdsjj0b0x.us-east-1.rds.amazonaws.com:3306',
-            user='online_order_app_master',
-            password='Appmaster3pl',
-            use_unicode = true,
-            live = true
-        }
-    end
-   ]]--
-
+   
 end
 
-function DBConnection.Verify_DBConn_Elite()  --function for validating db connection
+function dbConnection.verify_DBConn_Elite()  --function for validating db connection
     return conn_Elite_qa:check()
 end  --end Verify_DBConn_Elite() function
 
 
 
-function DBConnection.Verify_DBConn_Arcos()  --function for validating db connection
+function dbConnection.verify_DBConn_Arcos()  --function for validating db connection
     return conn_Arcos_stg:check()
 end  --end Verify_DBConn_Arcos() function
 
 
 
-
-
-return DBConnection
+return dbConnection
