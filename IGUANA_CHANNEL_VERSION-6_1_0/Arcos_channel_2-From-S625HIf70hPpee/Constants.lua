@@ -33,7 +33,10 @@ function constants.log_Constants()
     LOG_DIR_CREATE="        Log directory created"
     VALIDATION_FAILED="        Validation failed when validating datatypes of values in database"
     VALIDATION_SUCCESS="        Validation Success"
-   
+   DELETION_FAILED="        Data not got deleted from stg_elite_po_data table"
+   EMPTY_ELITE_DATA="        No data found in elite_data"
+   INSERTION_FAILED="        Insertion Failed as no data is there to insert"
+   COMPARE_FAILED="        Comparision failed"
    end
 
 return constants

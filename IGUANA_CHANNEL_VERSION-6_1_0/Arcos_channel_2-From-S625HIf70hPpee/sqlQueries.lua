@@ -44,4 +44,49 @@ AND ((PROD_841_D.LICENSE_CE.LICENSE_NUM) != 'EXEMPT' And (PROD_841_D.LICENSE_CE.
                      WHERE (form_222_num  not like  '3PL*'  OR  form_222_num  Is  Null)]]   --query for inserting data into trnsctn table
 end
 
+
+
+
+function sqlQueries.before_Insertion(elite_data,tab_elite_data_correct,i)
+ 
+      sql_ins_stg_elite_po_data =
+            [[
+                    INSERT INTO ArcosMDB.dbo.stg_elite_po_data(item_num,
+                    qty_received,
+                    confirm_date,
+                    vendor_num,
+                    form_222_num,
+                    org_code,
+                    po_num,
+                    line_seq,
+                    license_type,
+                    whse_code,
+                    dea_license,
+                    upc
+                  )
+                    VALUES
+                  (
+                  ]]..
+            "'"..tab_elite_data_correct[i].ITEM_NUM.."',"..
+            "\n   '"..tab_elite_data_correct[i].QTY_RECEIVED.."',"..
+            "\n   '"..tab_elite_data_correct[i].CONFIRM_DATE.."',"..
+            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.PO_L.VENDOR_NUM)"].."',"..
+            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.PO_L_CE.FORM_222_NUM)"].."',"..
+            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.PO_L.ORG_CODE)"].."',"..
+            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.PO_L.PO_NUM)"].."',"..
+            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.PO_L.LINE_SEQ)"].."',"..
+            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.ITEM_LICENSE_CE.LICENSE_TYPE)"].."',"..
+            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.PO_L.WHSE_CODE)"].."',"..
+            "\n   '"..tab_elite_data_correct[i].DEA_LICENSE.."',"..
+            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.ITEM.UPC)"].."'"..
+
+            '\n   )'
+   
+return sql_ins_stg_elite_po_data
+end
+
+
+
+
+
 return sqlQueries

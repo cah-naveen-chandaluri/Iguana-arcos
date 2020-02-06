@@ -3,9 +3,7 @@ local validation =  {}
 function validation.validate_value_string(order_value,column_size) --validation for data that we got from elite
     print(type(order_value),#order_value)
     print(type(order_value:nodeText()),#order_value,#order_value:nodeText(),type(order_value:nodeText()))
-    if(order_value == '') then
-        return true
-    elseif(type(order_value)=='userdata' and #order_value<=column_size and #order_value>=0) then
+   if(type(order_value)=='userdata' and #order_value<=column_size and #order_value>=0 ) then
         return true
     else
         return false
@@ -14,9 +12,7 @@ end
 
 
 function validation.validate_value_string2(order_value) --validation for data that we got from elite
-    if(order_value == '') then
-        return true
-elseif(type(order_value)=='userdata') then
+if(type(order_value)=='userdata') then
     return true
 else
     return false

@@ -9,8 +9,8 @@
    </to_channel>
    <from_mapper
       guid="Arcos_channel_2-From-S625HIf70hPpee"
-      commit_id="b73e87f595302e4d664df2d7c3847fc1827edce5"
-      commit_comment="added comments for all .lua files"
+      commit_id="276ef5b0739d85de5f57e396c2e02399a7326fbe"
+      commit_comment="commit"
       poll_time="10000">
    </from_mapper>
 </channel>
