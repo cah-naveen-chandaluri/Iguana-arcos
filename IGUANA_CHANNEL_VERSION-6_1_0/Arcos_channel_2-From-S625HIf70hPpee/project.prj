@@ -4,11 +4,12 @@
         "DBConnection.lua",
         "Stored_Procedures.lua",
         "Validation.lua",
+        "sqlQueries.lua",
         "util.lua"
     ],
     "LuaDependencies": [],
     "OtherDependencies": [],
-    "timestamp": "1580825689",
+    "timestamp": "1580986482",
     "version_info": {
         "build": 0,
         "major": 6,
