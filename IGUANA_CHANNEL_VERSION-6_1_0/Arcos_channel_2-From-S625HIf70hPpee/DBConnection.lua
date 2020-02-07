@@ -39,13 +39,13 @@ function dbConnection.connectdb()
    
 end
 
-function dbConnection.verify_DBConn_Elite()  --function for validating db connection
+function dbConnection.verifyDBConnElite()  --function for validating db connection
     return conn_Elite_qa:check()
 end  --end Verify_DBConn_Elite() function
 
 
 
-function dbConnection.verify_DBConn_Arcos()  --function for validating db connection
+function dbConnection.verifyDBConnArcos()  --function for validating db connection
     return conn_Arcos_stg:check()
 end  --end Verify_DBConn_Arcos() function
 

@@ -2,7 +2,7 @@ local sqlQueries =  {}
 
 function sqlQueries.queries()     --function is to call queries
 
-sql_sel_elite=[[                            
+SqlSelElite=[[                            
 select distinct
 CASE WHEN PROD_841_D.PO_L.ITEM_NUM LIKE 'CF%' THEN substr(TRIM(PROD_841_D.PO_L.ITEM_NUM), 3)
 	 ELSE TRIM(PROD_841_D.PO_L.ITEM_NUM) END
@@ -35,10 +35,10 @@ AND ((PROD_841_D.LICENSE_CE.LICENSE_NUM) != 'EXEMPT' And (PROD_841_D.LICENSE_CE.
    ]]    --query for reading data from elite
    
     
-   sql_delete_stg_elite_po_data="delete from ArcosMDB.dbo.stg_elite_po_data"   --query for deleting data from stg_elite_po_data table
-   sql_sel_stg_elite_po_data="select * from ArcosMDB.dbo.stg_elite_po_data"     --query for checking status by selecting 
-   sql_comp_del_stg_elite_po_data="DELETE s FROM ArcosMDB.dbo.stg_elite_po_data s inner join ArcosMDB.dbo.trnsctn t on s.item_num = t.item_id WHERE  s.vendor_num = t.cust_id AND  s.po_num= t.ship_po_num AND  s.line_seq= t.ship_po_line_num"   -- query is for comparing stg_elite_po_data table and trnsctn table 
-   sql_ins_trnsctn=[[INSERT INTO ArcosMDB.dbo.trnsctn (item_id, quantity, trnsctn_date, cust_id, order_form_id, assoc_registrant_dea, trnsctn_cde, row_add_stp, row_add_user_id, cord_dea, order_num, ship_po_num, ship_po_line_num, unit, whse, upc)
+   SqlDeleteStgElitePoData="delete from ArcosMDB.dbo.stg_elite_po_data"   --query for deleting data from stg_elite_po_data table
+   SqlSelStgElitePoData="select * from ArcosMDB.dbo.stg_elite_po_data"     --query for checking status by selecting 
+   SqlCompDelStgElitePoData="DELETE s FROM ArcosMDB.dbo.stg_elite_po_data s inner join ArcosMDB.dbo.trnsctn t on s.item_num = t.item_id WHERE  s.vendor_num = t.cust_id AND  s.po_num= t.ship_po_num AND  s.line_seq= t.ship_po_line_num"   -- query is for comparing stg_elite_po_data table and trnsctn table 
+   SqlInsTrnsctn=[[INSERT INTO ArcosMDB.dbo.trnsctn (item_id, quantity, trnsctn_date, cust_id, order_form_id, assoc_registrant_dea, trnsctn_cde, row_add_stp, row_add_user_id, cord_dea, order_num, ship_po_num, ship_po_line_num, unit, whse, upc)
                      Select item_num,qty_received,confirm_date,vendor_num,form_222_num,dea_license,'P',Getdate(),'Iquana User -' + convert(varchar(100), Getdate()),CASE WHEN whse_code = 'CORD100' THEN 'RC0229965' ELSE 'RC0361206' END  AS CordDEA,po_num,po_num,line_seq,'',whse_code,upc
                      from  ArcosMDB.dbo.stg_elite_po_data
                      WHERE (form_222_num  not like  '3PL*'  OR  form_222_num  Is  Null)]]   --query for inserting data into trnsctn table
@@ -47,7 +47,7 @@ end
 
 
 
-function sqlQueries.before_Insertion(elite_data,tab_elite_data_correct,i)
+function sqlQueries.beforeInsertion(elite_data,tab_elite_data_correct,i)
  
       sql_ins_stg_elite_po_data =
             [[
@@ -67,18 +67,18 @@ function sqlQueries.before_Insertion(elite_data,tab_elite_data_correct,i)
                     VALUES
                   (
                   ]]..
-            "'"..tab_elite_data_correct[i].ITEM_NUM.."',"..
-            "\n   '"..tab_elite_data_correct[i].QTY_RECEIVED.."',"..
-            "\n   '"..tab_elite_data_correct[i].CONFIRM_DATE.."',"..
-            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.PO_L.VENDOR_NUM)"].."',"..
-            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.PO_L_CE.FORM_222_NUM)"].."',"..
-            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.PO_L.ORG_CODE)"].."',"..
-            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.PO_L.PO_NUM)"].."',"..
-            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.PO_L.LINE_SEQ)"].."',"..
-            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.ITEM_LICENSE_CE.LICENSE_TYPE)"].."',"..
-            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.PO_L.WHSE_CODE)"].."',"..
-            "\n   '"..tab_elite_data_correct[i].DEA_LICENSE.."',"..
-            "\n   '"..tab_elite_data_correct[i]["TRIM(PROD_841_D.ITEM.UPC)"].."'"..
+            "'"..TabEliteDataCorrect[i].ITEM_NUM.."',"..
+            "\n   '"..TabEliteDataCorrect[i].QTY_RECEIVED.."',"..
+            "\n   '"..TabEliteDataCorrect[i].CONFIRM_DATE.."',"..
+            "\n   '"..TabEliteDataCorrect[i]["TRIM(PROD_841_D.PO_L.VENDOR_NUM)"].."',"..
+            "\n   '"..TabEliteDataCorrect[i]["TRIM(PROD_841_D.PO_L_CE.FORM_222_NUM)"].."',"..
+            "\n   '"..TabEliteDataCorrect[i]["TRIM(PROD_841_D.PO_L.ORG_CODE)"].."',"..
+            "\n   '"..TabEliteDataCorrect[i]["TRIM(PROD_841_D.PO_L.PO_NUM)"].."',"..
+            "\n   '"..TabEliteDataCorrect[i]["TRIM(PROD_841_D.PO_L.LINE_SEQ)"].."',"..
+            "\n   '"..TabEliteDataCorrect[i]["TRIM(PROD_841_D.ITEM_LICENSE_CE.LICENSE_TYPE)"].."',"..
+            "\n   '"..TabEliteDataCorrect[i]["TRIM(PROD_841_D.PO_L.WHSE_CODE)"].."',"..
+            "\n   '"..TabEliteDataCorrect[i].DEA_LICENSE.."',"..
+            "\n   '"..TabEliteDataCorrect[i]["TRIM(PROD_841_D.ITEM.UPC)"].."'"..
 
             '\n   )'
    

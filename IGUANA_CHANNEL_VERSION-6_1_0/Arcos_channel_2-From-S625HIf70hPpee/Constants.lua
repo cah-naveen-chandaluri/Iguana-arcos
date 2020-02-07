@@ -1,11 +1,12 @@
 local constants =  {}
 
-function constants.elite_size()
+function constants.eliteSize()
 
-    output_log_path= "C:\\IGUANA\\ARCOS\\LogFiles\\"
+    OutputLogPath= "C:\\IGUANA\\ARCOS\\LogFiles\\"
 
     ITEM_NUM=50
     QTY_RECEIVED=38
+    CONFIRM_DATE=20
     VENDOR_NUM=50
     FORM_222_NUM=50
     ORG_CODES=2
@@ -20,11 +21,11 @@ function constants.elite_size()
     
 end
 
-function constants.log_Constants()
+function constants.logConstants()
    
-       TIME_STAMP=os.date('%x').." "..os.date('%X').." - "
-    CHANNEL_STARTED_RUNNING="******* Iguana Import_Schedule_Items channel Started Running *******"
-    CHANNEL_STOPPED_RUNNING="^^^^^^^ Iguana Import_Schedule_Items channel Stopped Running ^^^^^^^"
+    TIME_STAMP=os.date('%x').." "..os.date('%X').." - "
+    CHANNEL_STARTED_RUNNING="******* Iguana EliteImportPOData channel Started Running *******"
+    CHANNEL_STOPPED_RUNNING="^^^^^^^ Iguana EliteImportPOData channel Stopped Running ^^^^^^^"
     DB_CON_ERROR_ELITE="        Database connection failed for Elite DataBase"
     DB_CON_ERROR_ARCOS="        Database connection failed for ARCOS DataBase"
     DB_CON_ERROR_ARCOS_STG="        Database connection failed for ARCOS Stage DataBase"
@@ -33,10 +34,10 @@ function constants.log_Constants()
     LOG_DIR_CREATE="        Log directory created"
     VALIDATION_FAILED="        Validation failed when validating datatypes of values in database"
     VALIDATION_SUCCESS="        Validation Success"
-   DELETION_FAILED="        Data not got deleted from stg_elite_po_data table"
-   EMPTY_ELITE_DATA="        No data found in elite_data"
-   INSERTION_FAILED="        Insertion Failed as no data is there to insert"
-   COMPARE_FAILED="        Comparision failed"
+    DELETION_FAILED="        Data not got deleted from stg_elite_po_data table"
+    EMPTY_ELITE_DATA="        No data found in elite_data"
+    INSERTION_FAILED="        Insertion Failed as no data is there to insert"
+    COMPARE_FAILED="        Comparision failed"
    end
 
 return constants
