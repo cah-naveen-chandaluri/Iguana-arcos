@@ -9,7 +9,7 @@
    </to_channel>
    <from_mapper
       guid="Arcos_channel_2-From-S625HIf70hPpee"
-      commit_id="7d0e69e9f54982f00a005d7c70540cfb020ff2fa"
+      commit_id="b7c63bf5df196fbe93049922534ba1f1f7433892"
       commit_comment="commit"
       poll_time="10000">
    </from_mapper>

@@ -48,7 +48,8 @@ end
 
 
 function sqlQueries.beforeInsertion(elite_data,tab_elite_data_correct,i)
- 
+
+      
       sql_ins_stg_elite_po_data =
             [[
                     INSERT INTO ArcosMDB.dbo.stg_elite_po_data(item_num,
@@ -71,7 +72,10 @@ function sqlQueries.beforeInsertion(elite_data,tab_elite_data_correct,i)
             "\n   '"..TabEliteDataCorrect[i].QTY_RECEIVED.."',"..
             "\n   '"..TabEliteDataCorrect[i].CONFIRM_DATE.."',"..
             "\n   '"..TabEliteDataCorrect[i]["TRIM(PROD_841_D.PO_L.VENDOR_NUM)"].."',"..
-            "\n   '"..TabEliteDataCorrect[i]["TRIM(PROD_841_D.PO_L_CE.FORM_222_NUM)"].."',"..
+            --"\n   '"..TabEliteDataCorrect[i]["TRIM(PROD_841_D.PO_L_CE.FORM_222_NUM)"].."',"..
+   
+            "\n  NULLIF('"..TabEliteDataCorrect[i]["TRIM(PROD_841_D.PO_L_CE.FORM_222_NUM)"].."', '')".. ","..
+   
             "\n   '"..TabEliteDataCorrect[i]["TRIM(PROD_841_D.PO_L.ORG_CODE)"].."',"..
             "\n   '"..TabEliteDataCorrect[i]["TRIM(PROD_841_D.PO_L.PO_NUM)"].."',"..
             "\n   '"..TabEliteDataCorrect[i]["TRIM(PROD_841_D.PO_L.LINE_SEQ)"].."',"..
