@@ -1,0 +1,18 @@
+{
+    "LocalDependencies": [
+        "ArcosSQL.lua",
+        "Constants.lua",
+        "DBConnection.lua",
+        "EliteSQLs.lua",
+        "Stored_Procedures.lua",
+        "Validation.lua"
+    ],
+    "LuaDependencies": [],
+    "OtherDependencies": [],
+    "timestamp": "1581695407",
+    "version_info": {
+        "build": 0,
+        "major": 6,
+        "minor": 0
+    }
+}

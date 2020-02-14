@@ -1,0 +1,24 @@
+<channel
+   name="ARCOS_import_schedule_items"
+   guid="6784C9D04ACAF4E5F2E28A561142DBA8"
+   description="This channel is to import schedule Items from elite to ARCOS db"
+   start_automatically="false"
+   logging_level="1"
+   use_message_filter="false">
+   <to_mapper
+      guid="ARCOS_import_schedule_items-To-beB56EeYZVyOKs"
+      commit_id="77331e7b1ca77daa325f0c7807aa763eb7c6bf74"
+      commit_comment="Import Translators: import">
+      <dequeue_list>
+         <dequeue
+            source_name="self"
+            dequeue_guid="95AB422653362AC82EBE9DB84FAD130A"/>
+      </dequeue_list>
+   </to_mapper>
+   <from_mapper
+      guid="ARCOS_import_schedule_items-From-2uKppa93NVqPqq"
+      commit_id="b9aaed3d6894f1e7350a20fffc55f5d644058334"
+      commit_comment="commit"
+      poll_time="10000">
+   </from_mapper>
+</channel>
