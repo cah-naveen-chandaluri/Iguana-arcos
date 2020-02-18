@@ -1,0 +1,8 @@
+CREATE TABLE [Elite_Stage_Pdma](
+	[org_code] string,
+	[order_num] string,
+	[pps_num] string,
+	[acknowledgement_date] string,
+	[is_eAOR] string,
+	[tag] string
+) 

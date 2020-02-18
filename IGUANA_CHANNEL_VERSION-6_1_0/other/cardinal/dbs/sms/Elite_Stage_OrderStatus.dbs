@@ -1,0 +1,21 @@
+CREATE TABLE [Elite_Stage_OrderStatus](
+	[org_code] string,
+	[order_num] string,
+	[cust_po_num] string,
+	[pps_num] string,
+	[order_status] string,
+	[order_status_desc] string,
+	[ship_status] string,
+	[ship_status_desc] string,
+	[whse_code] string,
+	[cancelled] string,
+	[cancel_note] string,
+	[still_onhold] string,
+	[order_date] string,
+	[shipped_date] string,
+	[time_created] string,
+	[po_status] string,
+	[po_status_desc] string,
+	[hold_code] string,
+	[tag] string
+)

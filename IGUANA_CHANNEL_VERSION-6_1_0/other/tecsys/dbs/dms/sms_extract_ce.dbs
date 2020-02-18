@@ -1,0 +1,17 @@
+create table [sms_extract_ce] (
+   [inv_shp_id] integer,
+   [extracted] integer,
+   [org_code] string,
+   [cust_num] string,
+   [whse_code] string,
+   [ord_id] integer,
+   [order_num] integer,
+   [order_type] string,
+   [pps_num] integer,
+   [custom_char_1] string,
+   [custom_char_2] string,
+   [custom_char_3] string,
+   [custom_char_4] string,
+   [custom_char_5] string,
+   key([inv_shp_id, org_code])
+);

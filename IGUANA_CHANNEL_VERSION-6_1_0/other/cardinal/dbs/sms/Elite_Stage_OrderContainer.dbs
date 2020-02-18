@@ -1,0 +1,12 @@
+CREATE TABLE [Elite_Stage_OrderContainer](
+	[org_code] string,
+	[order_num] string,
+	[cust_num] string,
+	[cust_po_num] string,
+	[pps_num] string,
+	[container_num] string,
+	[tracking_num] string,
+	[aod_date] string,
+	[recipient_name] string,   
+	[tag] string
+)

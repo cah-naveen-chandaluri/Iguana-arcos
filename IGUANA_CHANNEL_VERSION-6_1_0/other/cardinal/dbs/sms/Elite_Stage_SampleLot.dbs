@@ -1,0 +1,18 @@
+CREATE TABLE [Elite_Stage_SampleLot](
+	[org_code] string,
+	[action] string,
+	[reason_code] string,
+	[reason_text] string,
+	[effective_date] string,
+	[lot_end_date] string,
+	[update_start_indicator] string,
+	[update_end_indicator] string,
+	[instruction_order] string,
+	[global_lot_identifier] string,
+	[client_product_id] string,
+	[lot_number] string,
+	[manufacturer] string,
+	[lot_expiration_date] string,
+	[external_product_lot_id] string,
+	[tag] string
+) 

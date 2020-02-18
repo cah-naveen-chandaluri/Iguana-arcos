@@ -1,0 +1,15 @@
+CREATE TABLE [Elite_Stage_OrderLine](
+	[org_code] string,
+	[order_num] string,
+	[cust_num] string,
+	[cust_po_num] string,
+	[pps_num] string,
+	[inv_shp_l_id] string,
+	[item_num] string,
+	[shipped_qty] string,
+	[onhold_qty] string,
+	[sell_uom] string,
+	[lot_code] string,
+	[lot_shipped_quantity] string,
+	[tag] string
+)

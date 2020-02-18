@@ -1,0 +1,25 @@
+{
+    "": "--------------------------------------------------------------------------------------------------------------------",
+    "": "{DB Column}:{JSON label}",
+    "": "--------------------------------------------------------------------------------------------------------------------",
+    
+    "ScheduleItemMap": {
+        "item_num": "ITEM_NUM",
+        "LIC_REQD": "LIC_REQD",
+        "SCHED1": "SCHED1",
+        "SCHED2": "SCHED2",
+        "SCHED3": "SCHED3",
+        "SCHED4": "SCHED4",
+        "SCHED5": "SCHED5",
+        "SCHED6": "SCHED6",
+        "SCHED7": "SCHED7",
+        "SCHED8": "SCHED8",
+        "BACCS": "BACCS",
+        "BREAK_CODE": "BREAK_CODE",
+        "USE_BREAK_CODE": "USE_BREAK_CODE",
+        "UPC": "UPC",
+        "DESC_1": "DESC_1"
+     
+    }
+    }
+}

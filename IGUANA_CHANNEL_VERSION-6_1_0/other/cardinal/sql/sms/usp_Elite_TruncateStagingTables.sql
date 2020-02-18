@@ -1,0 +1,7 @@
+ TRUNCATE TABLE [dbo].[Elite_Stage_Customer]  
+ TRUNCATE TABLE [dbo].[Elite_Stage_Order]  
+ TRUNCATE TABLE [dbo].[Elite_Stage_OrderLine]  
+ TRUNCATE TABLE [dbo].[Elite_Stage_OrderContainer]  
+ TRUNCATE TABLE [dbo].[Elite_Stage_OrderStatus]  
+ TRUNCATE TABLE [dbo].[Elite_Stage_SampleLot]  
+ TRUNCATE TABLE [dbo].[Elite_Stage_Pdma]

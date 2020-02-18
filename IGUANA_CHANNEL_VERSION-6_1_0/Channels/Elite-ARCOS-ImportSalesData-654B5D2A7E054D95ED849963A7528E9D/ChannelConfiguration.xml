@@ -1,0 +1,24 @@
+<channel
+   name="Elite-ARCOS-ImportSalesData"
+   guid="654B5D2A7E054D95ED849963A7528E9D"
+   description=""
+   start_automatically="false"
+   logging_level="1"
+   use_message_filter="false">
+   <to_mapper
+      guid="Elite-Arcos-ImportSalesData-To-FhxADYT97LuL3o"
+      commit_id="4f22a16de302833dabf21bd4c9f8bfd648c844d2"
+      commit_comment="initial commit">
+      <dequeue_list>
+         <dequeue
+            source_name="self"
+            dequeue_guid="0F5F7947E95D70E52B6B01BEF6001CC3"/>
+      </dequeue_list>
+   </to_mapper>
+   <from_http
+      type="mapper"
+      guid="Elite-Arcos-ImportSalesData-FromHTTP-WEheeXXxsffbh3"
+      commit_id="5280c624c0a633c573f6f0474fd2adcf321250d0"
+      commit_comment="commit"
+      mapper_url_path="arcos/runSalesImportProcess"/>
+</channel>
