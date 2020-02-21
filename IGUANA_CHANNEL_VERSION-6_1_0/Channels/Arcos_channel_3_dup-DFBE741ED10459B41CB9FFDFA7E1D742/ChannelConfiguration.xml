@@ -1,0 +1,16 @@
+<channel
+   name="Arcos channel 3 dup"
+   guid="DFBE741ED10459B41CB9FFDFA7E1D742"
+   description=""
+   start_automatically="false"
+   logging_level="1"
+   use_message_filter="false">
+   <to_channel>
+   </to_channel>
+   <from_mapper
+      guid="Arcos_channel_3_dup-From-fn7ULVW4UsrzZK"
+      commit_id="47d52f4b684aacdfbca7a9255292f24f790e3e0c"
+      commit_comment="commit"
+      poll_time="10000">
+   </from_mapper>
+</channel>

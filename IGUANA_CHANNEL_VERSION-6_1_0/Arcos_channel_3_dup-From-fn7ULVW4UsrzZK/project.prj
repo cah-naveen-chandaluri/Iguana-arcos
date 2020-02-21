@@ -1,0 +1,17 @@
+{
+    "LocalDependencies": [
+        "Constants.lua",
+        "DBConnection.lua",
+        "Validation.lua",
+        "sqlQueries.lua",
+        "util.lua"
+    ],
+    "LuaDependencies": [],
+    "OtherDependencies": [],
+    "timestamp": "1582297994",
+    "version_info": {
+        "build": 0,
+        "major": 6,
+        "minor": 0
+    }
+}
